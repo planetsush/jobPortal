@@ -5,9 +5,60 @@ spring:
     username: root
     password: 8574
   jpa:
-    show-sql: true
+    show_sql: true
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: update
     properties:
       hibernate.dialect.storage_engine: innodb
+      format_sql: true
+  security:
+    user:
+      password: prishita123
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+
+oauth:
+  clientId: prishita
+  clientSecret: prishita-secret
+  privateKey: |
+        -----BEGIN RSA PRIVATE KEY-----
+        MIIEpAIBAAKCAQEA3+z5TWn0G9TsqUvzabJIB+tCZLGTdFl142S6JECHxh4jqRxe
+        ifCmBORxPMC5gSDrvame5pqFETrLR7NFM9940p6Vh+SLqKHraZVFQYTHo8FBWlpU
+        vFz8ny6dyYBRbPrUNGoNNUSBScFBLz70xK2xSyeg2t0xhYS8fxJClCOYJLUckyud
+        aBvclegrMox7RTwMmGwFbTqqmCFckjt0lcunQGHw5S6Chk8AtjB1W7Zr8QMYVvcG
+        WMMHmAlk7Oxlm1YEB8TqCskxfNr3IDqT2MqVJCoCpxllABvvzNvOGh7X7hxldrVp
+        GYXDY/5r+pRNM2oa/DNBVseTclxdco4H8EUaRQIDAQABAoIBAFhTxmbl41dTHuMM
+        xYAsxcLx5qeHcC2V2C2RHueL2MKqQtDDEvuARExru8sGDmZEERkoHjjCPLj2Ixcu
+        PJ7giG00BrGq0ff7nrtwGPhmIsWSRnAYb5I5b6Bup+jCx9uf+TKPnpQjaIgqRccY
+        Iz6tcOC/SfDrDUyodh39muuKOspHNZJtUbslsjwufCc1TEcdilrb/BIXGF1m92mW
+        SrFyuwds5PZzjIycd9pY9sy9XDLiLtAxSTeFusLhmN5ig06p8pNKEcfYiWYHqeq7
+        nFiuE6Pm3kx0mGqq3gDU3wEvqvCDYsUqrdCtKjIngZQUhlZ1YYrpAnZObs1YTodc
+        8FyLUsUCgYEA7+oH+1aLuQAFFQNSDZuHkwuwOp8TKezXeb37tIvibN8YZPVJjj07
+        sUhH7Aj6Xfb+nf4GmaUESD3039uLSMYp70wnRVNw1WM/EcCH4nhM09DCwGihbRy/
+        rudsTGCeX8Mh/jSNvArEkmuEfrAqJqZkJWDKyc2Ds8fmd8/a1tbM4R8CgYEA7vCC
+        sIMnsHSdtqd5iObWYLCCZ9M0AWblV/whhhHWzc2TiYwMVozmdx87SJxSTVU/yhd/
+        8YCCDLyuCX/m4lWhUbFcIpAqhtXaSOn1CBqK9mVK+V2Gcpeo5TVNwl7GUDe/6fsv
+        spHtwXDg9Zpy66D16qvfAswwpCRGbHoNxsHfJBsCgYEAhVikuxPtcRQLvxQrZRjP
+        D/HtL4f/FMxpL2djIYSmgzC01FhpW7+5D95G63BKCDQibRol/Pv1F1ooYswZ7IcI
+        A9Nl+GhaTKBvC6ThYgTPXuOne14sawMRn1tNnF4PaNaCbFI1fRDXFTLhX7D2nKja
+        /NOBowyxaRlwhaNn1QVqtq0CgYEAz5axVH1+O/X1F73E/0XeNr7jbSS3aAhndNue
+        nIZfIwpaBgRgq8laaV/+94SolHteIkvsYnsNgddjNOmkRDu1He6DZ5vs9pxRO0vY
+        EKRO2ucCDkhNCL3uhMScvCPvE757w+Lxe6kA8TEKoRcAhOqg/LM524pfMBw7+v7H
+        fUjufsUCgYARhMEwXdeWRBdJpCiMB9tvn2ECCdX9dvjMNMFxWmbOG6knCXsHqtqk
+        Ub1Ag6TZsyZoJkkHve6lHkiy+weaqbXZi87TRaKuFgZx4y3RVlvIYx4YxpqaKnwL
+        0DRMMB7lnms6LyNg2p/X8arFeG0yFTnLZ5Z7d//ugL2je8BjbBakmg==
+        -----END RSA PRIVATE KEY-----
+  publicKey: |
+        -----BEGIN PUBLIC KEY-----
+        MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3+z5TWn0G9TsqUvzabJI
+        B+tCZLGTdFl142S6JECHxh4jqRxeifCmBORxPMC5gSDrvame5pqFETrLR7NFM994
+        0p6Vh+SLqKHraZVFQYTHo8FBWlpUvFz8ny6dyYBRbPrUNGoNNUSBScFBLz70xK2x
+        Syeg2t0xhYS8fxJClCOYJLUckyudaBvclegrMox7RTwMmGwFbTqqmCFckjt0lcun
+        QGHw5S6Chk8AtjB1W7Zr8QMYVvcGWMMHmAlk7Oxlm1YEB8TqCskxfNr3IDqT2MqV
+        JCoCpxllABvvzNvOGh7X7hxldrVpGYXDY/5r+pRNM2oa/DNBVseTclxdco4H8EUa
+        RQIDAQAB
+        -----END PUBLIC KEY-----

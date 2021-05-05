@@ -1,9 +1,18 @@
 package com.prishita.jobportal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
 
 	@Id
@@ -15,8 +24,6 @@ public class User implements Serializable {
 	@Column(unique = true)
 	private String accountId;
 
-	private String roles;
-
 	private String password;
 
 	@Column(unique = true)
@@ -24,84 +31,7 @@ public class User implements Serializable {
 
 	private Boolean active;
 
-	public User() {
-	}
-
-	public User(String password, String username, String role, String accountId, String name) {
-		this.password = password;
-		this.username = username;
-		this.roles = role;
-		this.accountId = accountId;
-		this.active = true;
-		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String user) {
-		this.username = user;
-	}
-
-	public String getRoles() {
-		return roles;
-	}
-
-	public void setRoles(String role) {
-		this.roles = role;
-	}
-
-	public String getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
-	}
-
-	public Boolean getActive() {
-		return active;
-	}
-
-	public void setActive(Boolean active) {
-		this.active = active;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public String toString() {
-		return "User{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", accountId='" + accountId + '\'' +
-				", roles='" + roles + '\'' +
-				", password='" + password + '\'' +
-				", username='" + username + '\'' +
-				", active=" + active +
-				'}';
-	}
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@JsonIgnore
+	private List<UserAuthority> authorities;
 }

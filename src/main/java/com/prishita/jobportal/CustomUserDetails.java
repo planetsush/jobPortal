@@ -1,14 +1,13 @@
 package com.prishita.jobportal;
 
 import com.prishita.jobportal.entity.User;
+import com.prishita.jobportal.services.UserAuthorityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CustomUserDetails implements UserDetails {
 
@@ -19,15 +18,13 @@ public class CustomUserDetails implements UserDetails {
 	private String accountId;
 	private List<GrantedAuthority> authorities;
 
-	public CustomUserDetails(User user) {
+	public CustomUserDetails(User user, List<GrantedAuthority> authorities) {
 		this.username = user.getUsername();
 		this.password = user.getPassword();
 		this.name = user.getName();
 		this.active = user.getActive();
 		this.accountId = user.getAccountId();
-		this.authorities = Arrays.stream(user.getRoles().split(","))
-				.map(SimpleGrantedAuthority::new)
-				.collect(Collectors.toList());
+		this.authorities = authorities;
 	}
 
 	public CustomUserDetails(String username) {

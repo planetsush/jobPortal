@@ -22,7 +22,8 @@ public class UserResource {
 	}
 
 	@PostMapping("")
-	public User createUser(@RequestBody User user) {
-		return userService.createUser(user);
+	public User createUser(@RequestBody User user,
+	                       @RequestParam("role") String role) {
+		return userService.createUser(user, role);
 	}
 }
