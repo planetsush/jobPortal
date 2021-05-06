@@ -62,3 +62,14 @@ oauth:
         JCoCpxllABvvzNvOGh7X7hxldrVpGYXDY/5r+pRNM2oa/DNBVseTclxdco4H8EUa
         RQIDAQAB
         -----END PUBLIC KEY-----
+
+logging:
+  level:
+    org.springframework:
+      security: INFO
+      web: DEBUG
+      boot: INFO
+    com.prishita: DEBUG
+    com.netflix.discovery: OFF
+    org.hibernate: ERROR
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
