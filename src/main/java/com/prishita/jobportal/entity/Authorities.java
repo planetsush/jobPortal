@@ -19,4 +19,8 @@ public class Authorities implements Serializable {
 
 	@Column(unique = true)
 	private String authority;
+
+	public Authorities(String authority) {
+		this.authority = authority;
+	}
 }
