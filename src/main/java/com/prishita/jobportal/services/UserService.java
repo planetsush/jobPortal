@@ -1,17 +1,14 @@
 package com.prishita.jobportal.services;
 
-import com.prishita.jobportal.entity.Authorities;
-import com.prishita.jobportal.entity.User;
-import com.prishita.jobportal.entity.UserAuthority;
-import com.prishita.jobportal.repository.AuthoritiesRepository;
-import com.prishita.jobportal.repository.UserAuthorityRepository;
-import com.prishita.jobportal.repository.UserRepository;
+import com.prishita.jobportal.UserPayload;
+import com.prishita.jobportal.entity.*;
+import com.prishita.jobportal.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,18 +28,38 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private EmployersRepository employersRepository;
+
+	@Autowired
+	private EmployeesRepository employeesRepository;
+
+	@Autowired
+	private ResumesRepository resumesRepository;
+
 
 	@Transactional
-	public User createUser(User user, String role) {
+	public User createUser(UserPayload userPayload, String role) {
+		User user = new User();
 		Optional<Authorities> authority = authoritiesRepository.findAuthoritiesByAuthority(role);
-		if(authority.isEmpty()) {
+		if (authority.isEmpty()) {
 			return null;
 		}
 
+		user.setUsername(userPayload.getUsername());
 		user.setAccountId(UUID.randomUUID().toString());
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setPassword(passwordEncoder.encode(userPayload.getPassword()));
+		user.setEmail(userPayload.getEmail());
+		user.setPhno(userPayload.getPhoneNo());
+		user.setName(userPayload.getName());
 		user.setActive(true);
 		user = userRepository.save(user);
+
+		if (role.equals("EMPLOYER")) {
+			createEmployer(userPayload, user);
+		} else if (role.equals("EMPLOYEE")) {
+			createEmployee(userPayload, user);
+		}
 
 		UserAuthority userAuthority = new UserAuthority();
 		userAuthority.setUser(user);
@@ -50,6 +67,42 @@ public class UserService {
 		userAuthorityRepository.save(userAuthority);
 
 		return user;
+	}
+
+	private void createEmployee(UserPayload userPayload, User user) {
+		Employees employee = new Employees();
+		employee.setUser(user);
+		employee.setAnnualSalary(userPayload.getAnnualSalary());
+		employee.setGender(userPayload.getGender());
+		employee.setCurrentIndustry(userPayload.getCurrentIndustry());
+		employee.setProfile(userPayload.getProfile());
+		employee.setResume(saveResume(userPayload));
+		employee.setQuali(userPayload.getQuali());
+		employee.setCurrentLocation(userPayload.getCurrentLocation());
+		employeesRepository.save(employee);
+
+	}
+
+	private Resumes saveResume(UserPayload userPayload) {
+		if(userPayload.getResume() == null) {
+			return null;
+		}
+		try {
+			Resumes resume = new Resumes();
+			resume.setPdf(userPayload.getResume().getBytes());
+			return resumesRepository.save(resume);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private void createEmployer(UserPayload userPayload, User user) {
+		Employers employer = new Employers();
+		employer.setUser(user);
+		employer.setCompany(userPayload.getCompany());
+		employer.setProfile(userPayload.getProfile());
+		employersRepository.save(employer);
 	}
 
 	public Optional<User> getUser(Principal principal) {

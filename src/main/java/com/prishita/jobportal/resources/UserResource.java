@@ -1,5 +1,6 @@
 package com.prishita.jobportal.resources;
 
+import com.prishita.jobportal.UserPayload;
 import com.prishita.jobportal.entity.User;
 import com.prishita.jobportal.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class UserResource {
 		return user.orElse(null);
 	}
 
-	@PostMapping("")
-	public User createUser(@RequestBody User user,
+	@PostMapping("/signUp")
+	public User createUser(@RequestBody UserPayload user,
 	                       @RequestParam("role") String role) {
 		return userService.createUser(user, role);
 	}

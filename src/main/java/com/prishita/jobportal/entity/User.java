@@ -34,4 +34,12 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<UserAuthority> authorities;
+
+	@Column(unique = true)
+	private String email;
+
+	@Column(unique = true)
+	private String phno;
+
+	private String address;
 }
