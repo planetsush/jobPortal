@@ -33,7 +33,7 @@ public class JobService {
 	public Jobs createJob(Jobs job, Principal principal, String category) {
 		job.setActive(false);
 		job.setCategories(categoriesRepository.findCategoriesByName(category));
-		job.setCreatedBy(employersRepository.findEmployeesByUser(userRepository.findUserByUsername(principal.getName()).get()));
+		job.setCreatedBy(employersRepository.findEmployeesByUser(userRepository.findUserByEmail(principal.getName()).get()));
 		return jobsRepository.save(job);
 	}
 
@@ -52,7 +52,7 @@ public class JobService {
 	public Applicants applyJob(Long id, String name) {
 		Applicants applicant = new Applicants();
 		applicant.setJob(jobsRepository.getOne(id));
-		applicant.setEmployee(employeesRepository.findEmployeesByUser(userRepository.findUserByUsername(name).get()));
+		applicant.setEmployee(employeesRepository.findEmployeesByUser(userRepository.findUserByEmail(name).get()));
 		return applicantsRepository.save(applicant);
 	}
 }

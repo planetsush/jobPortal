@@ -6,6 +6,7 @@ import com.prishita.jobportal.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -45,8 +46,6 @@ public class UserService {
 		if (authority.isEmpty()) {
 			return null;
 		}
-
-		user.setUsername(userPayload.getUsername());
 		user.setAccountId(UUID.randomUUID().toString());
 		user.setPassword(passwordEncoder.encode(userPayload.getPassword()));
 		user.setEmail(userPayload.getEmail());
@@ -76,21 +75,21 @@ public class UserService {
 		employee.setGender(userPayload.getGender());
 		employee.setCurrentIndustry(userPayload.getCurrentIndustry());
 		employee.setProfile(userPayload.getProfile());
-		employee.setResume(saveResume(userPayload));
+		employee.setResume(resumesRepository.getOne(userPayload.getResume()));
 		employee.setQuali(userPayload.getQuali());
 		employee.setCurrentLocation(userPayload.getCurrentLocation());
 		employeesRepository.save(employee);
 
 	}
 
-	private Resumes saveResume(UserPayload userPayload) {
-		if(userPayload.getResume() == null) {
+	public Long saveResume(MultipartFile resumePayload) {
+		if(resumePayload == null) {
 			return null;
 		}
 		try {
 			Resumes resume = new Resumes();
-			resume.setPdf(userPayload.getResume().getBytes());
-			return resumesRepository.save(resume);
+			resume.setPdf(resumePayload.getBytes());
+			return resumesRepository.save(resume).getId();
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
@@ -107,6 +106,6 @@ public class UserService {
 
 	public Optional<User> getUser(Principal principal) {
 		System.out.println(principal.getName());
-		return userRepository.findUserByUsername(principal.getName());
+		return userRepository.findUserByEmail(principal.getName());
 	}
 }

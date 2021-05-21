@@ -31,12 +31,12 @@ public class Configurer extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.anonymous().and()
+		http.csrf().disable()
+				.anonymous().and()
 				.authorizeRequests()
 				.antMatchers("/api/user/**").permitAll()
 				.anyRequest().authenticated()
 				.and()
-				.csrf().disable()
 				.rememberMe()
 				.rememberMeParameter("remember-me")
 				.tokenValiditySeconds(2 * 86400)

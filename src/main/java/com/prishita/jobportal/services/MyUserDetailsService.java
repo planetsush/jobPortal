@@ -24,7 +24,7 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Optional<User> userOptional = userRepository.findUserByUsername(username);
+		Optional<User> userOptional = userRepository.findUserByEmail(username);
 		userOptional.orElseThrow(() -> new UsernameNotFoundException("User no found " + username));
 
 		List<GrantedAuthority> authorities = userAuthorityService.getAllByUser(userOptional.get());

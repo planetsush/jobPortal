@@ -76,9 +76,9 @@ logging:
       web: DEBUG
       boot: INFO
     com.prishita: DEBUG
-    com.netflix.discovery: OFF
     org.hibernate: ERROR
     org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
-
+    org.apache.http: DEBUG
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
 seed:
   enabled: true

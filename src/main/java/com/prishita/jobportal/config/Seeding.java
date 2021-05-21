@@ -1,6 +1,5 @@
 package com.prishita.jobportal.config;
 
-import com.prishita.jobportal.repository.AuthoritiesRepository;
 import com.prishita.jobportal.services.AuthoritiesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

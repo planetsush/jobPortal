@@ -26,9 +26,6 @@ public class User implements Serializable {
 
 	private String password;
 
-	@Column(unique = true)
-	private String username;
-
 	private Boolean active;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
