@@ -1,0 +1,123 @@
+<div class="container form">
+  <form #signUp="ngForm" (ngSubmit)="onClickSubmit(signUp.value)" (submit)="$event.preventDefault()">
+    <div class="form-group row">
+      <label for="name" class="col-sm-2 col-form-label">Full Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="name" ngModel name="name" placeholder="Full Name">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="email" class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="email" ngModel name="email" placeholder="Email">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="password" class="col-sm-2 col-form-label">Password</label>
+      <div class="col-sm-10">
+        <input type="password" class="form-control" id="password" ngModel name="password" placeholder="Password">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="phoneNo" class="col-sm-2 col-form-label">Phone Number</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="phoneNo" ngModel name="phoneNo" placeholder="Phone Number">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="address" class="col-sm-2 col-form-label">Address</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="address" ngModel name="address" placeholder="Address">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="profile" class="col-sm-2 col-form-label">Profile</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="profile" ngModel name="profile" placeholder="Profile">
+      </div>
+    </div>
+
+    <div class="text-center">
+      <div class="form-check text-center form-check-inline">
+        <input class="form-check-input" type="radio" name="role" id="employer" value="employer" [(ngModel)]="role">
+        <label class="form-check-label" for="employer">
+          Employer
+        </label>
+      </div>
+
+      <div class="form-check text-center form-check-inline">
+        <input class="form-check-input" type="radio" ngModel name="role" id="employee" value="employee" [(ngModel)]="role">
+        <label class="form-check-label" for="employee">
+          Employee
+        </label>
+      </div>
+    </div>
+
+    <div *ngIf="role === 'employer'">
+      <div class="form-group row">
+        <label for="company" class="col-sm-2 col-form-label">Company</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="company" ngModel name="company" placeholder="Company">
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="role === 'employee'">
+      <div class="form-group row">
+        <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="gender" ngModel name="gender" placeholder="Gender">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="currentLocation" class="col-sm-2 col-form-label">Current Location</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="currentLocation" ngModel name="currentLocation" placeholder="Current Location">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="annualSalary" class="col-sm-2 col-form-label">Annual Salary</label>
+        <div class="col-sm-10">
+          <input type="number" class="form-control" id="annualSalary" ngModel name="annualSalary" placeholder="Annual Salary">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="currentIndustry" class="col-sm-2 col-form-label">Current Industry</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="currentIndustry" ngModel name="currentIndustry" placeholder="Current Industry">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="qualification" class="col-sm-2 col-form-label">Qualification</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="qualification" ngModel name="quali" placeholder="Qualification">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="resumeUpload" class="col-sm-2 col-form-label">Resume</label>
+        <div class="col-sm-10">
+          <input type="file" #fileInput class="form-control" id="resumeUpload" name="resumeUpload" placeholder="Resume" (change)="getFile($event)">
+
+          <div>
+            <button type="button" class="btn btn-dark" (click)="upload()">Upload</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row text-center">
+      <div class="col-sm-10">
+        <input type="submit" class="btn btn-dark" id="signUp" name="signUp" value="Sign Up">
+      </div>
+    </div>
+  </form>
+</div>
