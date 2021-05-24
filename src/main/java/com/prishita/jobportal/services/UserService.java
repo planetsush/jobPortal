@@ -52,6 +52,7 @@ public class UserService {
 		user.setPhno(userPayload.getPhoneNo());
 		user.setName(userPayload.getName());
 		user.setActive(true);
+		user.setAddress(userPayload.getAddress());
 		user = userRepository.save(user);
 
 		if (role.equals("EMPLOYER")) {

@@ -1,7 +1,5 @@
-import {Injectable, Output, EventEmitter} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import {User} from "./sign-up/user";
-import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -20,29 +18,50 @@ export class HttpServiceService {
   constructor(private http: HttpClient) {
   }
 
-  signUp(value: User, role: String) {
-    this.http.post(`${this.url}/api/user/signUp?role=${role.toUpperCase()}`, value, {headers: this.header}).toPromise().then((res: any) => {
-      console.log(res);
-    }).catch((err: any) => {
-      console.log(err)
-    })
+  post(url: String, body: any, params: HttpParams, headers: HttpHeaders): Promise<any> {
+
+      return new Promise<any>((resolve, reject) => {
+        this.http.post(`${this.url}${url}`, body, {params: params, headers: headers}).toPromise().then( x => {
+          resolve(x);
+        }).catch( x => {
+          reject(x);
+        })
+      });
   }
 
   // @ts-ignore
   upload(file: any): Promise<any> {
 
     this.header.append("Content-Type", "multipart/form-data")
-    this.header.append("Accept","application/json")
+    this.header.append("Accept", "application/json")
 
 
     const data = new FormData();
     data.append("resume", file, file.name)
 
     return new Promise<any>((resolve, reject) => {
-      this.http.post(`${this.url}/api/user/resume`, data ,{headers: this.header}).toPromise().then(x => {
+      this.http.post(`${this.url}/api/user/resume`, data, {headers: this.header}).toPromise().then(x => {
         resolve(x);
       }).catch(x => {
         reject(x);
+      });
+    });
+  }
+
+  login(value: any): Promise<any> {
+
+    const params: HttpParams = new HttpParams();
+    params.append("grant_type", "password");
+    params.append("username", value.username);
+    params.append("password", value.password);
+
+    return new Promise<any>( (resolve, reject) => {
+      this.http.post(`http://prishita:prishita-secret@localhost:8080/oauth/token?grant_type=password&username=${value.username}&password=${value.password}`,
+        null, {headers: this.header})
+        .toPromise().then( res => {
+          resolve(res);
+      }).catch( res => {
+        reject(res);
       });
     });
   }
